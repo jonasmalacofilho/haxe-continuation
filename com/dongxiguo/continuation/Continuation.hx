@@ -42,6 +42,27 @@ using Lambda;
 @:final
 class Continuation
 {
+  macro static function transformBlock(e:Expr):Expr
+  {
+    return ContinuationDetail.transform(
+      e,
+      0,
+      false,
+      function(transformed)
+      {
+        transformed.push(
+        {
+          expr: ECall(macro __return, []),
+          pos: e.pos,
+        });
+        return
+        {
+          pos: e.pos,
+          expr: EBlock(transformed),
+        }
+      });
+  }
+
   /** Helper for making a block of code that uses @await, when you don't care
    *  about when block of code finishes. This is analogous to spawning a thread.
    *
@@ -110,23 +131,7 @@ class Continuation
                         }))
                   }
                 ]),
-              expr: ContinuationDetail.transform(
-                originExpr,
-                0,
-                false,
-                function(transformed)
-                {
-                  transformed.push(
-                  {
-                    expr: ECall(macro __return, []),
-                    pos: originExpr.pos,
-                  });
-                  return
-                  {
-                    pos: originExpr.pos,
-                    expr: EBlock(transformed),
-                  }
-                })
+              expr: macro @:privateAccess com.dongxiguo.continuation.Continuation.transformBlock($originExpr)
             })
         };
       }
@@ -136,7 +141,6 @@ class Continuation
       }
     }
   }
-
 
   /**
     When you add <code>@:build(com.dongxiguo.continuation.Continuation.cpsByMeta("metaName"))</code> in front of a class, any method with same metadata name from <code>metaName</code> in that class will be transfromed to CPS function.
@@ -198,23 +202,7 @@ class Continuation
                 });
               var originExpr = f.expr;
               if ( originExpr != null ) {
-                f.expr = ContinuationDetail.transform(
-                  originExpr,
-                  0,
-                  false,
-                  function(transformed)
-                  {
-                    transformed.push(
-                    {
-                      expr: ECall(macro __return, []),
-                      pos: originExpr.pos,
-                    });
-                    return
-                    {
-                      pos: originExpr.pos,
-                      expr: EBlock(transformed),
-                    }
-                  });
+                f.expr = macro @:privateAccess com.dongxiguo.continuation.Continuation.transformBlock($originExpr);
               }
             }
           }
