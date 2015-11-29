@@ -131,7 +131,7 @@ class Continuation
                         }))
                   }
                 ]),
-              expr: macro @:privateAccess com.dongxiguo.continuation.Continuation.transformBlock($originExpr)
+              expr: macro @:pos(originExpr.pos) @:privateAccess com.dongxiguo.continuation.Continuation.transformBlock($originExpr)
             })
         };
       }
@@ -202,7 +202,7 @@ class Continuation
                 });
               var originExpr = f.expr;
               if ( originExpr != null ) {
-                f.expr = macro @:privateAccess com.dongxiguo.continuation.Continuation.transformBlock($originExpr);
+                f.expr = macro @:pos(originExpr.pos) @:privateAccess com.dongxiguo.continuation.Continuation.transformBlock($originExpr);
               }
             }
           }
