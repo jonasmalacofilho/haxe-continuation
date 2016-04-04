@@ -848,13 +848,13 @@ class ContinuationDetail
               {
                 var __iterator = null;
                 {
-                  inline function setIterator<T>(
+                  inline function getIterator<T>(
                     iterable:Iterable<T> = null,
-                    iterator:Iterator<T> = null):Void
+                    iterator:Iterator<T> = null):Iterator<T>
                   {
-                    __iterator = iterable != null ? iterable.iterator() : iterator;
+                    return iterable != null ? iterable.iterator() : iterator;
                   }
-                  setIterator($e2);
+                  __iterator = getIterator($e2);
                 }
                 while (__iterator.hasNext())
                 {
