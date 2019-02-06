@@ -1,5 +1,5 @@
 -cp .
--lib nodejs
+-lib hxnodejs
 -js bin/TestNode.js
 -D nativeTrace
 -main tests.TestNode

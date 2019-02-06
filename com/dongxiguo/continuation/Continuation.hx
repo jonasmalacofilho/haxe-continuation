@@ -736,7 +736,7 @@ class ContinuationDetail
       }
       case EObjectDecl(originFields):
       {
-        function transformNext(i:Int, transformedFields:Array<{ field : String, expr : Expr }>):Expr
+        function transformNext(i:Int, transformedFields:Array<ObjectField>):Expr
         {
           if (i == originFields.length)
           {

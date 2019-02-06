@@ -28,7 +28,9 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 package tests;
-import js.Node;
+import js.Error;
+import js.node.Fs;
+import js.node.Buffer;
 import com.dongxiguo.continuation.Async;
 /**
  * @author 杨博
@@ -38,14 +40,14 @@ class TestNode implements Async
   /**
    * Writes <code>content</code> to <code>fd</code>.
    */
-  @async static function writeAll(fd:Int, content:String):Null<NodeErr>
+  @async static function writeAll(fd:Int, content:String):Null<Error>
   {
     var totalWritten = 0;
     while (totalWritten < content.length)
     {
-      var err, written =
-        @await Node.fs.write(
-          fd, content,
+      var err, written, _ =
+        @await Fs.write(
+          fd, Buffer.from(content),
           totalWritten, content.length - totalWritten, null);
       if (err != null)
       {
@@ -61,10 +63,10 @@ class TestNode implements Async
    */
   @async static function startTest():Void
   {
-    var err = @await Node.fs.mkdir("TestNode");
+    var err = @await Fs.mkdir("TestNode");
     if (err != null)
     {
-      trace("Node.fs.mkdir failed: " + err);
+      trace("Fs.mkdir failed: " + err);
       return;
     }
     
@@ -74,10 +76,10 @@ class TestNode implements Async
     {
       // Note that some asynchronous functions return more than one values!
       // It's OK in CPS functions, just like Lua.
-      var err, fd = @await Node.fs.open("TestNode/" + fileName, "w+");
+      var err, fd = @await Fs.open("TestNode/" + fileName, "w+");
       if (err != null)
       {
-        trace("Node.fs.open failed: " + err);
+        trace("Fs.open failed: " + err);
       }
       else
       {
@@ -85,14 +87,14 @@ class TestNode implements Async
         var err = @await writeAll(fd, "Content of " + fileName);
         if (err != null)
         {
-          trace("Node.fs.write failed: " + err);
+          trace("Fs.write failed: " + err);
         }
         else 
         {
-          var err = @await Node.fs.close(fd);
+          var err = @await Fs.close(fd);
           if (err != null)
           {
-            trace("Node.fs.close failed: " + err);
+            trace("Fs.close failed: " + err);
           }
         }
       }
