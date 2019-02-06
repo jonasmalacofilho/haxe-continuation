@@ -16,8 +16,13 @@ addons:
 install:
   - haxelib git hxnodejs https://github.com/HaxeFoundation/hxnodejs
   - haxelib git hxcs https://github.com/HaxeFoundation/hxcs
-  - haxelib git hxjava https://github.com/HaxeFoundation/hxjava
+  - if [ "${TRAVIS_HAXE_VERSION}" = "3.4.7" ]; then
+      haxelib install hxjava;
+    else
+      haxelib git hxjava https://github.com/HaxeFoundation/hxjava;
+    fi
 
 script:
-  make test
+  - echo "haxe=${TRAVIS_HAXE_VERSION}, neko=${TRAVIS_HAXE_VERSION}"
+  - make test
 
