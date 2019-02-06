@@ -9,7 +9,6 @@ clean:
 	$(RM) -r bin release.zip haxedoc.xml
 
 test: bin/TestContinuation.n bin/TestContinuation.swf bin/TestContinuation.js \
-		bin/TestForkJoin_java bin/TestForkJoin_cs bin/TestForkJoin.swf bin/TestForkJoin.js \
 		bin/Sample.swf bin/Sample.js bin/Sample_cs bin/Sample_java \
 		bin/TestNode.js
 
