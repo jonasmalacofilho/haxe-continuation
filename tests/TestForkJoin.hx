@@ -1,3 +1,5 @@
+// OUTDATED, not expected to work
+
 // Copyright (c) 2013, 杨博 (Yang Bo)
 // All rights reserved.
 // 
@@ -31,6 +33,8 @@ package tests;
 import haxe.Timer;
 
 using com.dongxiguo.continuation.utils.ForkJoin;
+
+// OUTDATED, not expected to work
 
 /**
  * @author 杨博
@@ -88,3 +92,5 @@ class TestForkJoin
   }
   
 }
+
+// OUTDATED, not expected to work

@@ -137,7 +137,7 @@ class Continuation
       }
       default:
       {
-        throw "CPS.cpsFunction expect a function as parameter.";
+        throw Context.error("CPS.cpsFunction expect a function as parameter.", Context.currentPos());
       }
     }
   }

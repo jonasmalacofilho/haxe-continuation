@@ -1,3 +1,4 @@
+# OUTDATED, not expected to work
 -cp .
 -lib nodejs
 -swf bin/TestNode.swf

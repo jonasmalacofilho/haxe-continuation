@@ -28,6 +28,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 
 package tests;
+import com.dongxiguo.continuation.Async;
 import com.dongxiguo.continuation.Continuation;
 
 /**
@@ -47,7 +48,7 @@ class Sample
       trace("Start continuation.");
       for (i in 0...10)
       {
-        sleepOneSecond().async();
+        @await sleepOneSecond();
         trace("Run sleepOneSecond " + i + " times.");
       }
       trace("Continuation is done.");
@@ -65,19 +66,18 @@ class Sample
 /**
 * @author 杨博
 */
-@:build(com.dongxiguo.continuation.Continuation.cpsByMeta("cps"))
-class Sample2
+class Sample2 implements Async
 {
   static function sleepOneSecond(handler:Void->Void):Void
   {
     haxe.Timer.delay(handler, 1000);
   }
-  @cps static function asyncTest():Void
+  @async static function asyncTest():Void
   {
     trace("Start continuation.");
     for (i in 0...10)
     {
-      sleepOneSecond().async();
+      @await sleepOneSecond();
       trace("Run sleepOneSecond " + i + " times.");
     }
     trace("Continuation is done.");
