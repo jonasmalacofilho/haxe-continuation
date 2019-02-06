@@ -1,0 +1,20 @@
+language: haxe
+
+haxe:
+  - development
+  - stable
+
+addons:
+  apt:
+    packages:
+      - openjdk-8-jdk
+      - mono-devel
+
+install:
+  - haxelib git hxnodejs https://github.com/HaxeFoundation/hxnodejs
+  - haxelib git hxcs https://github.com/HaxeFoundation/hxcs
+  - haxelib git hxjava https://github.com/HaxeFoundation/hxjava
+
+script:
+  make test
+

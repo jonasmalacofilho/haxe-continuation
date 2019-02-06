@@ -1,7 +1,3 @@
 haxedoc.xml
 release.zip
-bin
-*.swn
-*.swo
-*.swp
-.*
+bin/
