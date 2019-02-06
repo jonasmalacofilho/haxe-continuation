@@ -29,15 +29,16 @@
 
 package com.dongxiguo.continuation;
 
+using Lambda;
+
 #if macro
 import haxe.macro.Context;
 import haxe.macro.Type;
 import haxe.macro.Expr;
 #if (haxe_ver < 4)
-typedef ObjectField = {field:String, expr:String};
+typedef ObjectField = {field:String, expr:Expr};
 #end
 #end
-using Lambda;
 
 /**
   @author 杨博 <pop.atry@gmail.com>
