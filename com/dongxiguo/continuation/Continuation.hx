@@ -271,7 +271,11 @@ class ContinuationDetail
     switch (origin.expr)
     {
       // @fork(identifier in iterable) { ... forked code ... }
+#if (haxe_ver >= 4)
+      case EMeta({name:"fork", params:[{expr:EBinop(OpIn, {expr:EConst(CIdent(ident)), pos:_}, it), pos:_}]}, forkExpr):
+#else
       case EMeta({name:"fork", params:[{expr:EIn({expr:EConst(CIdent(ident)), pos:_}, it), pos:_}]}, forkExpr):
+#end
         if ( !hasAsyncCall(forkExpr) ) {
           Context.warning('@fork used, but no asynchronous calls are made in expression', origin.pos);
         }
@@ -801,7 +805,11 @@ class ContinuationDetail
         }
         return transformNext(0, []);
       }
+#if (haxe_ver >= 4)
+      case EBinop(OpIn, _, _):
+#else
       case EIn(_, _):
+#end
       {
         // Unsupported. Don't change it.
         return rest([origin]);
@@ -823,7 +831,11 @@ class ContinuationDetail
 
         switch (it.expr)
         {
+#if (haxe_ver >= 4)
+          case EBinop(OpIn, e1, e2):
+#else
           case EIn(e1, e2):
+#end
           {
             var elementName =
               switch (e1.expr)
@@ -1141,7 +1153,11 @@ class ContinuationDetail
       if ( e != null && e.expr != null ) {
         switch ( e.expr ) {
         case EMeta({name:"await", params:_, pos:_}, {expr:ECall(_, _), pos:_}): found = true;
+#if (haxe_ver >= 4)
+        case EMeta({name:"fork", params:[{expr:EBinop(OpIn, {expr:EConst(CIdent(_)), pos:_}, _), pos:_}]}, _): found = true;
+#else
         case EMeta({name:"fork", params:[{expr:EIn({expr:EConst(CIdent(_)), pos:_}, _), pos:_}]}, _): found = true;
+#end
         case EFunction(_,_):
         case _: haxe.macro.ExprTools.iter(e, f);
         }
@@ -1159,7 +1175,11 @@ class ContinuationDetail
       var e = stack.pop();
       switch ( e.expr ) {
       case EMeta({name:"await", params:_, pos:_}, {expr:ECall(_, _), pos:_}): found = true;
+#if (haxe_ver >= 4)
+      case EMeta({name:"fork", params:[{expr:EBinop(OpIn, {expr:EConst(CIdent(_)), pos:_}, _), pos:_}]}, _): found = true;
+#else
       case EMeta({name:"fork", params:[{expr:EIn({expr:EConst(CIdent(_)), pos:_}, _), pos:_}]}, _): found = true;
+#end
       case EReturn(_): found = true;
       case EBreak, EContinue: if ( inAsyncLoop ) found = true;
       case EFunction(_,_):
