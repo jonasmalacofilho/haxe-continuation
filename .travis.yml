@@ -23,6 +23,6 @@ install:
     fi
 
 script:
-  - echo "haxe=${TRAVIS_HAXE_VERSION}, neko=${TRAVIS_HAXE_VERSION}"
+  - echo "haxe=${TRAVIS_HAXE_VERSION}, neko=${TRAVIS_NEKO_VERSION}"
   - make test
 
