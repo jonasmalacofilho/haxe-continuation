@@ -1,13 +1,16 @@
+dist: xenial
 language: haxe
 
 haxe:
   - development
   - stable
 
+jdk:
+  - openjdk11
+
 addons:
   apt:
     packages:
-      - openjdk-8-jdk
       - mono-devel
 
 install:
