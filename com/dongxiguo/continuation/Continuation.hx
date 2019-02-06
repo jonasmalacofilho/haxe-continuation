@@ -33,6 +33,9 @@ package com.dongxiguo.continuation;
 import haxe.macro.Context;
 import haxe.macro.Type;
 import haxe.macro.Expr;
+#if (haxe_ver < 4)
+typedef ObjectField = {field:String, expr:String};
+#end
 #end
 using Lambda;
 
