@@ -1,7 +1,9 @@
 haxe-continuation
 =================
 
-This is a fork of haxe-continuation with an improved Haxe 3.0 syntax, and several new features.
+[![Build Status](https://travis-ci.org/jonasmalacofilho/haxe-continuation.svg?branch=master)](https://travis-ci.org/jonasmalacofilho/haxe-continuation)
+
+This is a fork of dongxiguo's haxe-continuation with an improved Haxe 3.0 syntax, and several new features.
 
 **haxe-continuation** works with asynchronous functions, written in *continuation-passing style (CPS)*. In CPS, 
 instead of a function returning a result, it takes a callback function as a parameter, which will be invoked when 
@@ -113,10 +115,9 @@ In this case, the callback function returns both an error code and the file cont
 
     var error, contents = @await loadFileWithError("file.txt");
 
-### Working with [hx-node](https://github.com/cloudshift/hx-node)
+### Working with [hxnodejs](https://github.com/HaxeFoundation/hxnodejs)
 
-Look at https://github.com/proletariatgames/haxe-continuation/blob/master/tests/TestNode.hx
-The example forks 5 threads, and calls Node.js's asynchronous functions in each thread.
+Look at [tests/TestNode.hx](tests/TestNode.hx).  The example forks 5 threads, and calls Node.js's asynchronous functions in each thread.
 
 ## License
 
