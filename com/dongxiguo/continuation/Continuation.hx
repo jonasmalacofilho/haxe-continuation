@@ -101,14 +101,14 @@ class Continuation
   {
     switch (expr.expr)
     {
-      case EFunction(name, f):
+      case EFunction(kind, f):
       {
         var originExpr = f.expr;
         return
         {
           pos: expr.pos,
           expr: EFunction(
-            name,
+            kind,
             {
               ret: TPath(
                 {
@@ -520,7 +520,11 @@ class ContinuationDetail
         {
           pos: origin.pos,
           expr: EFunction(
+#if (haxe_ver >= 4)
+            FNamed(endTryName, false),
+#else
             endTryName,
+#end
             {
               ret: null,
               params: [],
@@ -1200,7 +1204,11 @@ class ContinuationDetail
           transformedParameters.push(
           {
             pos: pos,
+#if (haxe_ver >= 4)
+            expr: EFunction(FAnonymous,
+#else
             expr: EFunction(null,
+#end
             {
               ret: null,
               params: [],
